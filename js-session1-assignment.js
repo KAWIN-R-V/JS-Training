@@ -1,35 +1,38 @@
 console.log("Hello");
 
-const name="Nitish R";
-const age=20;
+const name="Kawin R V";
+const age=21;
 let role="Graduate Intern";
 let isAvailable=true;
 console.log("name is a "+typeof name);
 console.log("age is a "+typeof age);
+
+//age = 22;
+//console.log("age is a "+typeof age);
 
 console.log(`Hi, I'm ${name} and I'm a ${role}.`);
 console.log(`Available: ${isAvailable}`);
 console.log(`My name has ${name.length} characters.`);
 
 const fullName=(first,last)=>`${first} ${last}`;
-console.log(fullName("John","Doe"));
+console.log(fullName("Kawin","R V"));
 const isAdult=(age)=>age>=18;
 console.log(isAdult(20));
 const formatUser=(user)=>`${user.name} - ${user.role}`;
 const User={
-    name:"Chris",
-    role:"manager"
+    name:"Kawin R V",
+    role:"developer"
 };
 console.log(formatUser(User));
 
 
 const user = {
   id: 1,
-  name: "Alice",
+  name: "Dharshan",
   role: "dev",
   active: true,
   address: {
-    city: "Bangalore",
+    city: "Tamilnadu",
     country: "India"
   }
 };
@@ -43,8 +46,8 @@ const updatedUser={...user,active:false};
 console.log(updatedUser);
 
 
-const devs = ["Bob", "Carol"];
-const designers = ["Oliver", "Liz"];
+const devs = ["kawi", "Dhars"];
+const designers = ["Olivia", "Liza"];
 const team=[...devs,...designers];
 console.log(team);
 const updateTeam=[...team,"Eva"];
@@ -110,8 +113,8 @@ const user1 = { name: "Elizabeth", active: true };
 user1.active = false ;   
 console.log(user1);
 
-const Username = "Alice";
-const username = "Bob";
+const Username = "Kawi";
+const username = "Dhars";
 console.log(Username);
 console.log(username);
 const a = null;
@@ -120,4 +123,4 @@ console.log(typeof a);
 console.log(typeof b);
 
 const greet = (name) => `Hello, ${name}`;
-console.log(greet("Alice"));
+console.log(greet("KAWIN"));
