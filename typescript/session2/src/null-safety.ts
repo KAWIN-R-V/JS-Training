@@ -88,3 +88,5 @@ console.log(getFirstWord("Hello World"));
 console.log(getUserAge({ name: "Alice", age: 25 }));
 console.log(getDbPort());
 console.log(findUser("Bob"));
+
+export {};

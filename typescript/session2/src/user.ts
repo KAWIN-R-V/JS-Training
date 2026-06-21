@@ -28,18 +28,9 @@ const viewerUser: User = {
   role: "viewer"
 };
 
-// Error Example
-// const invalidUser: User = {
-//   id: 4,
-//   name: "David",
-//   email: "david@example.com",
-//   role: "superuser"
-// };
-
-// Error Example
-// adminUser.id = 100;
-
 /*
-readonly prevents accidental modification of the id.
-It is safer than relying on developers to remember not to change it.
+readonly prevents accidental changes
+to the id after object creation.
 */
+
+export {};

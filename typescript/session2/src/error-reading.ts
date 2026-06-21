@@ -124,3 +124,5 @@ const personName: string =
   person.name ?? "Unknown";
 
 console.log(personName);
+
+export {};

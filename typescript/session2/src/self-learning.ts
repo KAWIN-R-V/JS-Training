@@ -120,3 +120,4 @@ function getPermissions(
 console.log(
   getPermissions("admin")
 );
+export {};
