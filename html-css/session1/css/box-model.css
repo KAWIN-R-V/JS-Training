@@ -1,0 +1,144 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 30px;
+}
+
+h1,
+h2 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+hr {
+    margin: 40px 0;
+}
+
+/* ===================================================
+   Task 4.1 - Basic Box Model
+=================================================== */
+
+.box {
+    width: 300px;
+    height: 150px;
+    padding: 20px;
+    border: 4px solid #333;
+    margin: 40px auto;
+    background-color: lightblue;
+    text-align: center;
+    line-height: 102px;
+    font-weight: bold;
+}
+
+/*
+Task 4.1 Answers
+
+1. Total rendered width:
+Since box-sizing: border-box is used,
+the total width remains 300px.
+
+2. What changes if box-sizing: border-box is removed?
+
+The width becomes:
+
+300px (content)
++ 40px (left & right padding)
++ 8px (left & right border)
+
+= 348px total width.
+
+Without border-box, width only applies
+to the content area.
+*/
+
+
+/* ===================================================
+   Task 4.2 - content-box vs border-box
+=================================================== */
+
+.content-box {
+    box-sizing: content-box;
+    width: 300px;
+    padding: 20px;
+    border: 4px solid red;
+    margin: 20px auto;
+    background-color: #ffe0e0;
+    text-align: center;
+    font-weight: bold;
+}
+
+.border-box {
+    box-sizing: border-box;
+    width: 300px;
+    padding: 20px;
+    border: 4px solid green;
+    margin: 20px auto;
+    background-color: #e0ffe0;
+    text-align: center;
+    font-weight: bold;
+}
+
+/*
+Task 4.2 Answer
+
+content-box:
+The width property applies only to
+the content.
+
+Padding and border increase the total width.
+
+border-box:
+The width includes content,
+padding and border.
+
+Therefore, the border-box element
+keeps the exact width specified.
+*/
+
+
+/* ===================================================
+   Task 4.4 - Padding vs Margin
+=================================================== */
+
+.padding-demo {
+    background-color: lightcoral;
+    padding: 30px;
+    margin: 8px auto;
+    width: 500px;
+}
+
+.margin-demo {
+    background-color: lightcoral;
+    padding: 4px;
+    margin: 30px auto;
+    width: 500px;
+}
+
+/*
+Task 4.4 Answers
+
+What is the visual difference?
+
+Padding adds space INSIDE the element.
+The background color extends into
+the padded area.
+
+Margin adds space OUTSIDE the element.
+The background color does not extend
+into the margin area.
+
+When to use padding?
+
+Use padding when you need space
+between the content and the border.
+
+When to use margin?
+
+Use margin to create space
+between separate elements.
+*/

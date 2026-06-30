@@ -1,0 +1,96 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 40px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* =====================================
+   Profile Card
+===================================== */
+
+.profile-card {
+    width: 320px;
+    margin: 40px auto;
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: center;
+
+    /* Box Shadow */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/*
+=====================================
+box-shadow Explanation
+
+box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+
+0px   → Horizontal offset
+        (shadow doesn't move left/right)
+
+4px   → Vertical offset
+        (shadow moves downward)
+
+10px  → Blur radius
+        (higher value = softer shadow)
+
+rgba(0,0,0,0.15)
+      → Shadow color
+      → Black with 15% opacity
+
+This creates a subtle shadow that
+adds depth without being too dark.
+=====================================
+*/
+
+.profile-card img {
+    width: 100%;
+    display: block;
+}
+
+.profile-card header {
+    padding: 20px;
+}
+
+.profile-card h2 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.job-title {
+    margin-top: 8px;
+    color: #777777;
+    font-size: 0.95rem;
+}
+
+.bio {
+    padding: 0 20px 20px;
+    color: #555555;
+    line-height: 1.6;
+    text-align: justify;
+}
+
+.profile-card footer {
+    padding: 20px;
+}
+
+.contact-btn {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #0077cc;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.contact-btn:hover {
+    background-color: #005fa3;
+}

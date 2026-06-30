@@ -1,0 +1,73 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 40px;
+}
+
+.first {
+    background-color: #ffe0e0;
+    padding: 10px;
+    margin-bottom: 40px;
+    border: 2px solid #ff9999;
+}
+
+.second {
+    background-color: #e0e0ff;
+    padding: 10px;
+    margin-top: 20px;
+    border: 2px solid #9999ff;
+}
+
+/*
+====================================================
+Task 4.3 Answers
+====================================================
+
+1. What is the actual gap between the two paragraphs?
+
+Answer:
+The actual gap is 40px, not 60px.
+
+----------------------------------------------------
+
+2. Why?
+
+Answer:
+Vertical margins between adjacent block elements
+collapse into a single margin.
+
+The browser only uses the larger margin value,
+instead of adding both margins together.
+
+40px (margin-bottom)
+20px (margin-top)
+
+Final gap = 40px
+
+----------------------------------------------------
+
+3. When does margin collapse NOT happen?
+
+Margin collapse does NOT occur:
+
+• Between flex items.
+• Between grid items.
+• When elements are absolutely positioned.
+• When elements are floated.
+• When padding or borders separate the margins.
+• When overflow is set to hidden, auto, or scroll
+  on the parent element.
+
+====================================================
+*/

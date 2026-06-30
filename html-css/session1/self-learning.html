@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self Learning Tasks</title>
+
+    <link rel="stylesheet" href="css/self-learning.css">
+</head>
+
+<body>
+
+    <h1>HTML & CSS Self-Learning Tasks</h1>
+
+    <!-- ==========================================
+         Task 1 - Outline Property
+    =========================================== -->
+
+    <section>
+
+        <h2>1. Outline vs Border</h2>
+
+        <div class="border-box-demo">
+            This box uses a Border.
+        </div>
+
+        <div class="outline-box-demo">
+            This box uses an Outline.
+        </div>
+
+        <!--
+        Border becomes part of the element's box model
+        and affects the element's size.
+
+        Outline is drawn outside the border and does
+        not affect the element's dimensions.
+
+        Outline is commonly used to highlight focused
+        elements such as form fields for accessibility.
+        -->
+
+    </section>
+
+    <hr>
+
+    <!-- ==========================================
+         Task 2 - display:none vs visibility:hidden
+    =========================================== -->
+
+    <section>
+
+        <h2>2. display: none vs visibility: hidden</h2>
+
+        <div class="normal-box">
+            Normal Box
+        </div>
+
+        <div class="hidden-box">
+            visibility: hidden
+        </div>
+
+        <div class="display-none-box">
+            display: none
+        </div>
+
+        <div class="normal-box">
+            Another Normal Box
+        </div>
+
+        <!--
+        visibility: hidden hides the element but keeps
+        its original space.
+
+        display: none removes the element completely
+        from the page layout.
+        -->
+
+    </section>
+
+    <hr>
+
+    <!-- ==========================================
+         Task 3 - max-width
+    =========================================== -->
+
+    <section class="container">
+
+        <h2>3. max-width Demonstration</h2>
+
+        <p>
+            This container uses <strong>max-width: 800px</strong>.
+            Resize the browser window to observe how it remains
+            readable on large screens while adapting on smaller
+            screens.
+        </p>
+
+        <!--
+        max-width prevents content from becoming too wide
+        on large displays while allowing responsiveness
+        on smaller devices.
+        -->
+
+    </section>
+
+    <hr>
+
+    <!-- ==========================================
+         Task 4 - Overflow
+    =========================================== -->
+
+    <section>
+
+        <h2>4. CSS Overflow</h2>
+
+        <div class="overflow-hidden">
+            This is a long paragraph used to demonstrate
+            overflow hidden. Extra content is clipped and
+            cannot be viewed beyond the container.
+        </div>
+
+        <div class="overflow-scroll">
+            This is a long paragraph used to demonstrate
+            overflow scroll. Scrollbars always appear
+            allowing access to hidden content.
+        </div>
+
+        <div class="overflow-auto">
+            This is a long paragraph used to demonstrate
+            overflow auto. Scrollbars only appear when
+            necessary.
+        </div>
+
+    </section>
+
+</body>
+
+</html>
