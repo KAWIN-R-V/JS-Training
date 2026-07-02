@@ -1,0 +1,97 @@
+/* Root font size */
+html {
+    font-size: 16px;
+}
+
+/* General page styling */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 2rem;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Common style for all boxes */
+.box-px,
+.box-percent,
+.box-rem,
+.box-vw {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border: 2px solid #333;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+/* Fixed width using pixels */
+.box-px {
+    width: 300px;
+    background-color: #f0f4ff;
+}
+
+/* Percentage width */
+.box-percent {
+    width: 50%;
+    background-color: #fff0f4;
+}
+
+/* Width based on root font size */
+.box-rem {
+    width: 20rem;
+    background-color: #f0fff4;
+}
+
+/* Width based on viewport width */
+.box-vw {
+    width: 60vw;
+    background-color: #fffbf0;
+}
+
+/*
+px = Fixed size and does not scale with the browser.
+Useful for borders, icons, and fixed-width elements.
+
+rem = Relative to the root font size.
+Useful for responsive typography and spacing.
+
+% = Relative to the parent element.
+Useful for flexible layouts.
+*/
+
+/* Font Size Demo */
+
+.font-demo {
+    margin-top: 3rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+
+    /* Parent font size for em demonstration */
+    font-size: 12px;
+}
+
+.px-text {
+    font-size: 16px;
+    margin-bottom: 1rem;
+}
+
+.rem-text {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.em-text {
+    font-size: 1.5em;
+}
+
+/*
+Difference between rem and em
+
+rem:
+- Based on the root (html) font size.
+- Does not depend on the parent element.
+
+em:
+- Based on the font size of its parent.
+- Changes whenever the parent's font size changes.
+*/

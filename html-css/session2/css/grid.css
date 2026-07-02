@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+    margin: 30px;
+    color: #333;
+}
+
+h1,
+h2 {
+    margin: 20px 0;
+}
+
+hr {
+    margin: 40px 0;
+}
+
+/* Task 3.1 - Grid Basics */
+
+.grid-container {
+    display: grid;
+
+    /* Three equal columns */
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.grid-item {
+    background: #4f46e5;
+    color: white;
+    padding: 30px;
+    text-align: center;
+    border-radius: 6px;
+    font-size: 20px;
+}
+
+/*
+Experiment with:
+
+grid-template-columns: 200px 200px 200px;
+→ Three fixed-width columns
+
+grid-template-columns: 1fr 2fr 1fr;
+→ Middle column is twice as wide
+
+grid-template-columns: repeat(3,1fr);
+→ Cleaner shorthand
+
+fr (Fraction)
+Divides the available space equally among columns.
+
+Difference from %
+
+% uses a percentage of the parent width.
+
+fr divides only the remaining available space.
+*/
+
+/* Task 3.2 - Grid Column Spanning */
+
+.grid-container-featured {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 1rem;
+
+    margin-top: 2rem;
+
+    padding: 1rem;
+}
+
+.featured {
+    grid-column: 1 / 3;
+
+    background: #4338ca;
+    color: white;
+
+    text-align: center;
+
+    padding: 40px;
+
+    border-radius: 6px;
+
+    font-size: 22px;
+}
+
+/*
+grid-column:1/3
+
+Starts at Grid Line 1
+Ends before Grid Line 3
+
+Therefore spans two columns.
+
+Try:
+
+grid-column:1/-1
+
+-1 represents the last grid line,
+making the element span the full width.
+*/
+
+/* Task 3.3 - Grid Page Layout */
+
+.page-layout {
+    display: grid;
+
+    grid-template-columns: 220px 1fr;
+
+    grid-template-rows: auto 1fr auto;
+
+    min-height: 100vh;
+
+    margin-top: 20px;
+}
+
+.page-header {
+    grid-column: 1 / -1;
+
+    background: #1d4ed8;
+    color: white;
+
+    padding: 20px;
+
+    text-align: center;
+}
+
+.page-sidebar {
+    background: #dbeafe;
+
+    padding: 20px;
+}
+
+.page-main {
+    background: white;
+
+    padding: 20px;
+}
+
+.page-footer {
+    grid-column: 1 / -1;
+
+    background: #1d4ed8;
+    color: white;
+
+    text-align: center;
+
+    padding: 20px;
+}
+
+/*
+Classic Grid Layout
+
+-------------------------
+Header
+-------------------------
+Sidebar | Main Content
+-------------------------
+Footer
+-------------------------
+*/
+
+/* Task 3.4 - Responsive Photo Grid */
+
+.photo-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+    gap: 1rem;
+
+    margin-top: 30px;
+}
+
+.photo-card {
+
+    background: #e0e7ff;
+
+    height: 150px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 8px;
+
+    font-size: 20px;
+
+    font-weight: bold;
+}
+
+/*
+repeat(auto-fill, minmax(200px,1fr))
+
+auto-fill
+Automatically creates as many columns
+as fit in the available width.
+
+minmax(200px,1fr)
+
+Each card
+
+Minimum width = 200px
+
+Maximum width = 1 fraction of remaining space
+
+Result
+
+Large screen
+6 cards appear in one row if space permits.
+
+Medium screen
+Cards wrap into fewer columns.
+
+Mobile
+Cards automatically become one column.
+
+No media queries are required.
+*/

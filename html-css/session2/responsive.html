@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Responsive Design</title>
+
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <h1>Responsive Design Demonstration</h1>
+
+    <hr>
+
+    
+    <!-- Task 4.1 - Viewport Meta Tag -->
+    
+    <section>
+
+        <h2>Viewport Meta Tag</h2>
+
+        <p>
+            Open Chrome DevTools (<strong>Ctrl + Shift + M</strong>)
+            and switch to mobile view.
+        </p>
+
+        <p>
+            Remove the viewport meta tag temporarily and observe how
+            the page becomes zoomed out. Restore it to see the proper
+            responsive layout.
+        </p>
+
+    </section>
+
+    <hr>
+
+    
+    <!-- Task 4.2 - Responsive Box -->
+    
+
+    <section>
+
+        <h2>Responsive Box</h2>
+
+        <div class="responsive-box">
+
+            <h3>Resize the Browser Window</h3>
+
+            <p>
+                The background colour, padding, and font size change
+                automatically at different screen widths.
+            </p>
+
+        </div>
+
+    </section>
+
+    <hr>
+
+    
+    <!-- Task 4.3 - Responsive Navigation -->
+    
+    <section>
+
+        <h2>Responsive Navigation Bar</h2>
+
+        <nav class="resp-nav">
+
+            <div class="resp-logo">
+                MyWebsite
+            </div>
+
+            <ul class="resp-links">
+
+                <li><a href="#">Home</a></li>
+
+                <li><a href="#">Products</a></li>
+
+                <li><a href="#">About</a></li>
+
+                <li><a href="#">Contact</a></li>
+
+            </ul>
+
+        </nav>
+
+    </section>
+
+    <hr>
+
+    
+    <!-- Task 4.4 - Responsive Images -->
+   
+
+    <section class="image-section">
+
+        <h2>Responsive Image</h2>
+
+        <img
+            src="https://picsum.photos/800/400"
+            alt="Sample Landscape">
+
+        <!--
+            max-width:100% keeps the image inside its parent container.
+
+            height:auto maintains the original aspect ratio so
+            the image doesn't become stretched or squashed.
+        -->
+
+    </section>
+
+</body>
+</html>

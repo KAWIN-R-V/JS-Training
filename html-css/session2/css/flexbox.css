@@ -1,0 +1,203 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 30px;
+    background: #f4f4f4;
+    color: #333;
+}
+
+h1,
+h2 {
+    margin: 20px 0;
+}
+
+hr {
+    margin: 40px 0;
+}
+
+/* Task 2.1 - Flex Container */
+
+.container {
+    display: flex;
+    background: #eeeeee;
+    padding: 20px;
+    gap: 20px;
+
+    /* Try these one by one */
+
+    justify-content: space-evenly;
+
+    /*
+    justify-content controls horizontal alignment.
+
+    center         -> Items stay in center.
+    space-between  -> First & last touch edges.
+    space-evenly   -> Equal spacing around all items.
+    */
+
+    align-items: center;
+
+    /*
+    align-items controls vertical alignment.
+
+    flex-start -> Top alignment
+    center     -> Middle alignment
+    stretch    -> Fill available height
+    */
+
+    flex-wrap: wrap;
+
+    /*
+    flex-wrap allows items to move to the next line
+    when there isn't enough horizontal space.
+    */
+
+    /* flex-direction: row; */
+
+    /*
+    row    -> Horizontal
+    column -> Vertical
+    */
+}
+
+.item {
+    background: #4f46e5;
+    color: white;
+    padding: 20px 35px;
+    border-radius: 6px;
+    font-size: 20px;
+}
+
+/* Task 2.2 - Flex Grow */
+
+.grow-container {
+    display: flex;
+    gap: 20px;
+    background: #eeeeee;
+    padding: 20px;
+}
+
+.grow-1 {
+    flex-grow: 1;
+    background: #818cf8;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.grow-2 {
+    flex-grow: 2;
+    background: #4338ca;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/*
+flex-grow determines how remaining space is divided.
+
+Current ratio
+
+1 : 2 : 1
+
+Total = 4 parts
+
+If changed to
+
+1 : 3 : 1
+
+Total = 5 parts
+
+Middle box becomes larger.
+*/
+
+/* Task 2.3 - Navigation Bar */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: #1f2937;
+    padding: 18px 30px;
+    border-radius: 8px;
+}
+
+.logo {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.nav-links a:hover {
+    color: #60a5fa;
+}
+
+/* Task 2.4 - Cards */
+
+.card-row {
+    display: flex;
+    gap: 25px;
+
+    flex-wrap: wrap;
+    /*
+    Without flex-wrap, cards remain in one row.
+
+    With flex-wrap, cards move to the next line
+    when the screen becomes smaller.
+    */
+}
+
+.card {
+    flex: 1;
+
+    min-width: 250px;
+
+    background: white;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    padding: 20px;
+
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    margin-bottom: 15px;
+    color: #4338ca;
+}
+
+.card p {
+    line-height: 1.6;
+}
+
+/*
+Observation:
+
+When a fourth card is added:
+
+• Without flex-wrap
+  Cards shrink to fit in one row.
+
+• With flex-wrap
+  Cards automatically move to the next row,
+  making the layout responsive.
+*/

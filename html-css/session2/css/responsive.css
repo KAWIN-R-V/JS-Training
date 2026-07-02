@@ -1,0 +1,209 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 30px;
+    line-height: 1.6;
+}
+
+h1,
+h2 {
+    margin: 20px 0;
+}
+
+hr {
+    margin: 40px 0;
+}
+
+/*Task 4.2 - Mobile First */
+
+
+.responsive-box {
+    background: #fef3c7;
+    padding: 1rem;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    border: 2px solid #eab308;
+}
+
+/* Tablet */
+
+@media (min-width: 768px) {
+
+    .responsive-box {
+
+        background: #d1fae5;
+
+        padding: 2rem;
+
+        font-size: 1rem;
+    }
+
+}
+
+/* Desktop */
+
+@media (min-width: 1024px) {
+
+    .responsive-box {
+
+        background: #dbeafe;
+
+        padding: 3rem;
+
+        font-size: 1.2rem;
+
+        max-width: 800px;
+
+        margin: auto;
+    }
+
+}
+
+/*
+Difference between min-width and max-width
+
+min-width
+-----------
+Styles are applied from the specified width
+and above.
+
+Example:
+768px and larger.
+
+This approach is called Mobile-First.
+
+max-width
+-----------
+Styles are applied up to the specified width.
+
+Example:
+768px and smaller.
+
+This approach is called Desktop-First.
+*/
+
+/* Task 4.3 - Responsive Navigation */
+
+.resp-nav {
+
+    background: #1e1b4b;
+
+    padding: 1rem;
+
+    border-radius: 8px;
+
+}
+
+.resp-logo {
+
+    color: white;
+
+    font-size: 1.4rem;
+
+    font-weight: bold;
+
+    margin-bottom: 1rem;
+
+}
+
+.resp-links {
+
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.75rem;
+
+}
+
+.resp-links a {
+
+    color: #a5b4fc;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+}
+
+.resp-links a:hover {
+
+    color: white;
+
+}
+
+/* Tablet and Larger */
+
+@media (min-width:768px) {
+
+    .resp-nav {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+    }
+
+    .resp-logo {
+
+        margin-bottom: 0;
+
+    }
+
+    .resp-links {
+
+        flex-direction: row;
+
+        gap: 1.5rem;
+
+    }
+
+}
+
+/* Task 4.4 - Responsive Images */
+
+.image-section {
+
+    margin-top: 40px;
+
+}
+
+img {
+
+    max-width: 100%;
+
+    height: auto;
+
+    display: block;
+
+    border-radius: 8px;
+
+}
+
+/*
+Why max-width:100% ?
+
+It prevents the image from becoming
+wider than its container.
+
+Without it,
+large images overflow the screen,
+causing horizontal scrolling.
+
+Why height:auto ?
+
+It preserves the original aspect ratio
+while resizing the image,
+preventing distortion.
+*/
