@@ -1,0 +1,20 @@
+{
+  "name": "session1",
+  "version": "1.0.0",
+  "description": "Node.js Session 1 Activity Tasks",
+  "main": "hello.js",
+  "scripts": {
+    "start": "node dates.js",
+    "hello": "node hello.js",
+    "info": "node system-info.js",
+    "dev": "nodemon dates.js"
+  },
+  "author": "Kawin R V",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.11.21"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
