@@ -84,9 +84,7 @@ console.log("Total after update:", verify.length);
 console.log("----------------------------------");
 
 /*
---------------------------------------------------
 Update Amit's Score
---------------------------------------------------
 */
 
 const currentData = JSON.parse(
