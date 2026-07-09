@@ -1,6 +1,6 @@
 function Dashboard() {
   const interns = [
-    { id: 1, name: "Rahul", score: 92, isPresent: true },
+    { id: 1, name: "Kawin", score: 92, isPresent: true },
     { id: 2, name: "Priya", score: 78, isPresent: true },
     { id: 3, name: "Amit", score: 45, isPresent: false },
     { id: 4, name: "Sneha", score: 95, isPresent: true },

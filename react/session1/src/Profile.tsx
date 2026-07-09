@@ -3,7 +3,7 @@
 // they do not return a value. Use ternary operators or Array.map() instead.
 
 function Profile() {
-  const name: string = "Rahul";
+  const name: string = "Kawin R V";
   const role: string = "Intern";
   const score: number = 92;
   const joinDate: string = "2026-06-30";
