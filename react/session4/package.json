@@ -4,14 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "oxlint",
-    "preview": "vite preview",
-    "test":          "vitest",
-    "test:run":      "vitest run",
-    "test:ui":       "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+  "dev": "vite",
+  "build": "tsc && vite build",
+  "test": "vitest",
+  "test:run": "vitest run",
+  "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "react": "^19.2.7",
