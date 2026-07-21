@@ -1,3 +1,8 @@
 node_modules/
 .DS_Store
 dist/
+
+session1/node_modules/
+session2/node_modules/
+session3/node_modules/
+session4/node_modules/
