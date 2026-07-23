@@ -59,10 +59,10 @@ if (fs.existsSync(checkPath)) {
 
     fs.writeFileSync(
         checkPath,
-        "Created because it was missing."
+        "Created because it was missing. "
     );
 
-    console.log("missing.txt created successfully.");
+    console.log("missing.txt created successfully. ");
 }
 
 /*
