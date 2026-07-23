@@ -4,7 +4,12 @@
     "target": "es2023",
     "lib": ["ES2023", "DOM"],
     "module": "esnext",
-    "types": ["vite/client"],
+
+    "types": [
+      "vite/client",
+      "vitest/globals"
+    ],
+
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
 
@@ -22,5 +27,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "tests/intern-dashboard.spec.ts"]
 }
