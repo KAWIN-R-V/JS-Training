@@ -1,0 +1,261 @@
+Task 1.1
+Answer:
+- What is the status code?
+    HTTP/1.1 200 OK
+- What is the Content-Type header value?
+    application/json; charset=utf-8
+- How many users are returned? (count the `"id"` fields in the body)
+    10 users 
+- What is the URL structure — collection or single resource?
+    Collection Resource (Returns all users).
+
+
+Task 1.2
+Answer:
+- What status code did the second request return?
+    HTTP/1.1 404 Not Found
+- What was in the response body for the 404?
+    {} (An empty JSON object)
+- What does this tell you about how this API handles "not found"?
+    The API returns a 404 Not Found status code with an empty JSON object ({}) when the requested resource does not exist. This indicates that the server correctly identifies missing resources instead of returning a successful response.
+
+
+
+Task 1.3
+Answer:
+- How many posts were returned?
+    10 posts
+- Which part of the URL is the path? Which part is the query string?
+    Path: /posts
+    Query String: ?userId=1
+- Could you use a path parameter instead (`/users/1/posts`)?
+    Yes. The URL /users/1/posts is a valid path parameter that returns the posts belonging to user 1.
+- Do both return the same results? Which URL style do you prefer and why?
+    Yes. Both URLs return the same 10 posts for user 1.
+
+I prefer /users/1/posts because it clearly shows the relationship between the user and their posts, making the API easier to understand. The query parameter style (/posts?userId=1) is more flexible because it can be combined with other filters.
+
+
+Task 2.1
+Answer:
+- What status code was returned? (should be 201)
+    201 Created
+- What is in the response body? What `id` was assigned?
+    The response body contains the newly created resource with the fields title, body, userId, and id. The assigned id is 101.
+- Did the `Location` header appear? (JSONPlaceholder does not return it — note this as a real-world API design gap)
+    No. The Location header did not appear. JSONPlaceholder does not return it, although many real-world REST APIs include a Location header pointing to the newly created resource.
+
+**Write a comment:** What would happen if you sent the same POST request a second time?
+> What status code should a well-designed API return on a duplicate? (hint: 409)
+    Sending the same POST request again would create another resource with a new id in most APIs. If the API does not allow duplicate resources, it should return 409 Conflict to indicate that the request conflicts with an existing resource.
+
+
+Task 2.2
+Answer:
+- What fields appear in the PUT response body vs the PATCH response body?
+    The PUT response contains all fields of the resource (id, title, body, and userId). The PATCH response contains only the updated field (title).
+- Why did PATCH only need one field in the body?
+    PATCH is used for partial updates. It only requires the fields that need to be changed, leaving all other fields unchanged.
+- When would you choose PUT over PATCH in a real intern dashboard API?
+    Use PUT when replacing the entire intern record with new data. Use PATCH when updating only specific fields, such as an intern's score, attendance, or role.
+
+
+Task 2.3
+Answer:
+- What status code was returned?
+    HTTP/1.1 200 OK
+- What was in the response body?
+    An empty JSON object ({}) was returned.
+- Is 200 or 204 more appropriate for a successful DELETE? Why?
+    204 No Content is more appropriate because the resource has been successfully deleted and there is no response body to return. JSONPlaceholder returns 200 OK with an empty body for demonstration purposes.
+
+
+Task 3.1
+    GET /interns — 15 interns found => 200 
+    POST /interns — intern created successfully => 201 Created
+    DELETE /interns/42 — deleted, no body needed => 204 No Content
+    GET /interns/9999 — this intern does not exist => 404 Not Found
+    POST /interns — request body is missing name field => 400 Bad Request
+    GET /interns — user is not logged in => 401 Unauthorized
+    GET /interns/42 — user is logged in but only admins can see this => 403 Forbidden
+    POST /interns — database crashed => 500 Internal Server Error
+
+Task 3.2
+Bug A
+    What's wrong?
+        The API returned 200 OK even though the resource does not exist.
+    Correct Response
+        404 Not Found
+
+Bug B
+    Correct Response
+        201 Created
+
+Bug C
+    Correct Response
+        204 No Content
+
+Bug D
+    Correct Response
+        401 Unauthorized
+
+
+Why does returning 200 OK with { "error": "..." } break API consumers?
+Answer:
+    Returning 200 OK with an error message misleads API consumers into thinking the request was successful. Many frontend applications check the HTTP status code first. If they receive 200, they may try to process the response as valid data instead of handling it as an error, leading to incorrect behavior or application bugs.
+
+
+Task 4.1
+Scenario A: Get a specific intern by ID
+    Correct URL
+        GET /interns/42
+
+Scenario B: Get interns whose role is "Frontend"
+    Correct URL
+        GET /interns?role=Frontend
+
+Scenario C: Get the first 5 interns, sorted by score descending
+    Correct URL
+        GET /interns?limit=5&sort=score&order=desc
+
+Scenario D: Get attendance records for intern 42
+    Correct URL
+        GET /interns/42/attendance
+
+Scenario E: Get interns whose name contains "Rahu"
+    Correct URL
+        GET /interns?name=Rahu
+
+
+Task 4.2
+Answer:
+- Did the fake token cause a 401? Why not? (Think about what JSONPlaceholder does with the header.)
+    No. JSONPlaceholder ignores the Authorization header because it is a mock API and does not perform authentication.
+- In a real API, what would the server do with the Authorization header?
+    The server would validate the token. If the token is valid, it would process the request; otherwise, it would return a 401 Unauthorized response.
+- What is the difference between 401 and 403 in terms of the Authorization header?
+    401 Unauthorized: The user is not authenticated or has provided an invalid/expired token.
+    403 Forbidden: The user is authenticated, but does not have permission to access the requested resource.
+
+
+
+Task 4.3
+Answer:
+| Action                           | Method     | URL                     | Request Body                                                     | Expected Status    |
+| -------------------------------- | ---------- | ----------------------- | ---------------------------------------------------------------- | ------------------ |
+| List all interns                 | **GET**    | `/interns`              | None                                                             | **200 OK**         |
+| Get intern #7                    | **GET**    | `/interns/7`            | None                                                             | **200 OK**         |
+| Create a new intern              | **POST**   | `/interns`              | `{"name":"Rahul","role":"Backend","score":90,"isPresent":true}`  | **201 Created**    |
+| Update intern #7's score only    | **PATCH**  | `/interns/7`            | `{"score":95}`                                                   | **200 OK**         |
+| Replace intern #7 entirely       | **PUT**    | `/interns/7`            | `{"name":"Rahul","role":"Frontend","score":95,"isPresent":true}` | **200 OK**         |
+| Delete intern #7                 | **DELETE** | `/interns/7`            | None                                                             | **204 No Content** |
+| List interns with role = Backend | **GET**    | `/interns?role=Backend` | None                                                             | **200 OK**         |
+| Get all attendance for intern #7 | **GET**    | `/interns/7/attendance` | None                                                             | **200 OK**         |
+
+
+Would you have a separate /attendance resource or nest it under /interns/{id}/attendance? What are the tradeoffs?
+Answer:
+    I would use /interns/{id}/attendance because attendance belongs to a specific intern, making the relationship clear and the API easier to understand. A separate /attendance resource is more flexible if attendance records need to be searched, filtered, or managed independently across all interns.
+
+
+
+Task 5.1
+
+Identify in the output:
+- Lines starting with `>` — request headers sent by curl
+    These are the HTTP request headers sent by curl to the server.
+- Lines starting with `<` — response headers received from the server
+    These are the HTTP response headers returned by the server.
+- The blank line that separates headers from body
+    The blank line separates the HTTP headers from the response body (JSON data).
+- The `Host` header — what value does curl send automatically?
+    jsonplaceholder.typicode.com
+
+
+Task 5.2
+Write a Comment
+In a real application, which layer would make the POST request — the UI component, the service layer, or the repository layer? Why?
+Answer:
+    The service layer should make the POST request because it contains the business logic and communicates with the API. The UI layer should only collect user input and display results, while the repository layer is responsible for data access and storage.
+
+
+
+Task 5.3
+What happened when Content-Type was missing? Did it work? Should it?
+Answer:
+    The request still worked because JSONPlaceholder is a mock API and accepts the request even without the Content-Type header. In a production REST API, the server should require the correct Content-Type (application/json) and may return 400 Bad Request or 415 Unsupported Media Type if it is missing or incorrect.
+What status code did the non-existent endpoint return?
+Answer:
+    404 Not Found
+What should a production API return in the body of a 400 or 404 response?
+Answer:
+    A production API should return a structured JSON error response containing details such as the status code, an error message, and optionally a timestamp or request path. For example:
+    {
+    "status": 404,
+    "error": "Not Found",
+    "message": "The requested resource does not exist."
+    }
+
+
+Task 6.1
+
+Mistake A
+GET /getAllInterns
+What's wrong?
+    The URL uses a verb (getAll). In REST, the HTTP method (GET) already indicates the action.
+Correct API
+    GET /interns
+
+Mistake B
+POST /interns/delete/42
+What's wrong?
+    Using POST and including delete in the URL is not RESTful.
+Correct API
+    DELETE /interns/42
+
+Mistake C
+GET /createIntern?name=Rahul&role=Frontend&score=88
+What's wrong?
+    GET should never create resources.
+Correct API
+    POST /interns
+
+Mistake D
+POST /interns/42/updateScore
+  Body: { "score": 95 }
+What's wrong?
+    The URL contains the action (updateScore).
+Correct API
+    PATCH /interns/42
+
+Mistake E
+DELETE /interns?id=42
+What's wrong?
+    The resource ID should be part of the path, not a query parameter.
+Correct API
+    DELETE /interns/42
+
+
+Task 6.2
+
+| Action                                     | Method     | URL                                        | Expected Status    |
+| ------------------------------------------ | ---------- | ------------------------------------------ | ------------------ |
+| List all projects                          | **GET**    | `/projects`                                | **200 OK**         |
+| Get a specific project                     | **GET**    | `/projects/{projectId}`                    | **200 OK**         |
+| Create a project                           | **POST**   | `/projects`                                | **201 Created**    |
+| List all projects an intern is assigned to | **GET**    | `/interns/{internId}/projects`             | **200 OK**         |
+| Assign an intern to a project              | **POST**   | `/projects/{projectId}/interns/{internId}` | **201 Created**    |
+| Remove an intern from a project            | **DELETE** | `/projects/{projectId}/interns/{internId}` | **204 No Content** |
+
+
+Write a Comment
+Is POST /projects/{id}/interns/{internId} a good endpoint for assigning an intern? Or should it be POST /interns/{id}/projects/{projectId}? What determines which is the "owner" resource?
+Answer:
+    Both endpoint styles are valid. The choice depends on which resource owns or manages the relationship.
+    If projects are responsible for managing assigned interns, then:
+    POST /projects/{projectId}/interns/{internId}
+    is the better design.
+    If interns are responsible for managing their assigned projects, then:
+    POST /interns/{internId}/projects/{projectId}
+    is more appropriate.
+    The owner resource is determined by the application's business logic and how the relationship is managed.
