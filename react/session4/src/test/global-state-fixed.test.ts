@@ -4,9 +4,9 @@ function addItem(cart: string[], item: string): string[] {
   return [...cart, item];
 }
 
-function removeItem(cart: string[], item: string): string[] {
-  return cart.filter((i) => i !== item);
-}
+// function removeItem(cart: string[], item: string): string[] {
+//   return cart.filter((i) => i !== item);
+// }
 
 test("cart starts empty", () => {
   const cart: string[] = [];
