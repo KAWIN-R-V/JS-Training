@@ -2,21 +2,15 @@ import useInternForm from "../hooks/useInternForm";
 import { useInterns } from "../contexts/intern-context";
 
 function AddInternForm() {
-  const { form, error, handleChange, handleReset, isValid } =
-    useInternForm();
+  const { addIntern } = useInterns();
 
-  const { addIntern, interns } = useInterns();
-
-  function handleSubmit(): void {
-    if (!isValid()) return;
-
-    addIntern({
-      id: interns.length + 1,
-      ...form,
-    });
-
-    handleReset();
-  }
+  const {
+    form,
+    error,
+    handleChange,
+    handleReset,
+    submit,
+  } = useInternForm(addIntern);
 
   return (
     <div style={{ marginBottom: "20px" }}>
@@ -71,7 +65,7 @@ function AddInternForm() {
       <br />
       <br />
 
-      <button onClick={handleSubmit}>Add Intern</button>
+      <button onClick={submit}>Add Intern</button>
 
       <button
         onClick={handleReset}

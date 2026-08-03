@@ -96,7 +96,7 @@ describe("AddInternForm", () => {
     );
 
     expect(
-      screen.getByText("Score must be between 0 and 100")
+      screen.getByText("Score must be 0–100")
     ).toBeInTheDocument();
   });
 

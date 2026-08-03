@@ -1,4 +1,11 @@
+// Testability audit — useInternSearch.ts
+// Q1 Predictable output? YES — given the same interns and search term, it always returns the same filtered list.
+// Q2 No external deps? YES — no network, timers, or browser APIs.
+// Q3 Dependencies injectable? YES — interns are provided as input and the filtering logic can be extracted.
+// Verdict: HIGHLY TESTABLE
+
 import { useState, useMemo } from "react";
+import { filterInterns } from "../utils/intern-utils";
 
 interface Intern {
   id: number;
@@ -22,11 +29,9 @@ interface UseInternSearchReturn {
 function useInternSearch(interns: Intern[]): UseInternSearchReturn {
   const [search, setSearch] = useState("");
 
+  
   const filtered = useMemo(
-    () =>
-      interns.filter((intern) =>
-        intern.name.toLowerCase().includes(search.toLowerCase())
-      ),
+    () => filterInterns(interns, search),
     [interns, search]
   );
 

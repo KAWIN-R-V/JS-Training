@@ -1,16 +1,24 @@
 import { renderHook, act } from "@testing-library/react";
-import { test, expect } from "vitest";
+import { test, expect, vi } from "vitest";
 import useInternForm from "./useInternForm";
 
 test("starts with empty form", () => {
-  const { result } = renderHook(() => useInternForm());
+  const addIntern = vi.fn();
+
+  const { result } = renderHook(() =>
+    useInternForm(addIntern)
+  );
 
   expect(result.current.form.name).toBe("");
   expect(result.current.form.score).toBe(0);
 });
 
 test("validation fails when name is empty", () => {
-  const { result } = renderHook(() => useInternForm());
+  const addIntern = vi.fn();
+
+  const { result } = renderHook(() =>
+    useInternForm(addIntern)
+  );
 
   let valid = false;
 
@@ -23,15 +31,74 @@ test("validation fails when name is empty", () => {
 });
 
 test("reset clears values", () => {
-  const { result } = renderHook(() => useInternForm());
+  const addIntern = vi.fn();
+
+  const { result } = renderHook(() =>
+    useInternForm(addIntern)
+  );
 
   act(() => {
     result.current.handleReset();
   });
 
   expect(result.current.form.name).toBe("");
+  expect(result.current.form.score).toBe(0);
+});
+
+test("submit calls addIntern when form is valid", () => {
+  const addIntern = vi.fn();
+
+  const { result } = renderHook(() =>
+    useInternForm(addIntern, () => 999)
+  );
+
+  act(() => {
+    result.current.handleChange({
+      target: {
+        name: "name",
+        value: "Rahul",
+        type: "text",
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
+
+    result.current.handleChange({
+      target: {
+        name: "score",
+        value: "92",
+        type: "number",
+      },
+    } as React.ChangeEvent<HTMLInputElement>);
+  });
+
+  act(() => {
+    result.current.submit();
+  });
+
+  expect(addIntern).toHaveBeenCalledTimes(1);
+
+  expect(addIntern).toHaveBeenCalledWith({
+    id: 999,
+    name: "Rahul",
+    score: 92,
+    isPresent: true,
+    role: "Frontend",
+  });
+});
+
+test("submit does not call addIntern when validation fails", () => {
+  const addIntern = vi.fn();
+
+  const { result } = renderHook(() =>
+    useInternForm(addIntern)
+  );
+
+  act(() => {
+    result.current.submit();
+  });
+
+  expect(addIntern).not.toHaveBeenCalled();
 });
 
 // Hook tests focus only on the hook logic.
-// They are simpler and faster than testing the
-// same behavior through a React component.
+// Dependencies are injected using vi.fn(),
+// making the tests fast, repeatable, and independent.

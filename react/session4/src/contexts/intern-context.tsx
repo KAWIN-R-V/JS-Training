@@ -1,3 +1,9 @@
+// Testability audit — intern-context.tsx
+// Q1 Predictable output? PARTIALLY — useEffect and setTimeout introduce timing.
+// Q2 No external deps? NO — depends on React Context and timer.
+// Q3 Dependencies injectable? NO — timeout and data source are hard-coded.
+// Verdict: LOW TESTABILITY
+
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
@@ -16,9 +22,17 @@ interface InternContextType {
   removeIntern: (id: number) => void;
 }
 
+interface InternProviderProps {
+  children: ReactNode;
+  generateId?: () => number;
+}
+
 const InternContext = createContext<InternContextType | null>(null);
 
-export function InternProvider({ children }: { children: ReactNode }) {
+export function InternProvider({
+  children,
+  generateId = () => Date.now(),
+}: InternProviderProps) {
   const [interns, setInterns] = useState<Intern[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -60,7 +74,13 @@ export function InternProvider({ children }: { children: ReactNode }) {
   }, []);
 
   function addIntern(intern: Intern): void {
-    setInterns((prev) => [...prev, intern]);
+    setInterns((prev) => [
+      ...prev,
+      {
+        ...intern,
+        id: intern.id ?? generateId(),
+      },
+    ]);
   }
 
   function removeIntern(id: number): void {
