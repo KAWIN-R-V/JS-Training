@@ -1,8 +1,7 @@
-// Testability audit — useInternForm.ts
-// Q1 Predictable output? PARTIALLY — validation is predictable, but the hook depends on React state.
-// Q2 No external deps? YES — no network, database, or browser APIs.
-// Q3 Dependencies injectable? YES — addIntern and generateId are injected.
-// Verdict: HIGHLY TESTABLE
+// Silent Failure Audit — useInternForm.ts
+// Pattern 1: Validation returns false instead of throwing for invalid input.
+// Pattern 2: Error messages are stored in component state instead of immediately stopping execution.
+// Pattern 3: submit() depends on validation but may silently return without indicating why to the caller.
 
 import { useState } from "react";
 import type { ChangeEvent } from "react";
@@ -104,3 +103,7 @@ function useInternForm(
 }
 
 export default useInternForm;
+
+// Most likely silent failure:
+// Returning false from validation can be ignored by callers.
+// Throwing meaningful errors would make failures easier to detect.
