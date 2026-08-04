@@ -1,5 +1,20 @@
+// Silent Failure Audit — useInternForm.ts
+// Pattern 1: Validation returns false instead of throwing for invalid input.
+// Pattern 2: Error messages are stored in component state instead of immediately stopping execution.
+// Pattern 3: submit() depends on validation but may silently return without indicating why to the caller.
+
 import { useState } from "react";
 import type { ChangeEvent } from "react";
+
+import { validateInternForm } from "../utils/intern-validation";
+
+export interface Intern {
+  id: number;
+  name: string;
+  score: number;
+  isPresent: boolean;
+  role: string;
+}
 
 interface InternFormState {
   name: string;
@@ -16,6 +31,7 @@ interface UseInternFormReturn {
   ) => void;
   handleReset: () => void;
   isValid: () => boolean;
+  submit: () => void;
 }
 
 const initialForm: InternFormState = {
@@ -25,7 +41,10 @@ const initialForm: InternFormState = {
   role: "Frontend",
 };
 
-function useInternForm(): UseInternFormReturn {
+function useInternForm(
+  addIntern: (intern: Intern) => void,
+  generateId: () => number = Date.now
+): UseInternFormReturn {
   const [form, setForm] = useState<InternFormState>(initialForm);
   const [error, setError] = useState("");
 
@@ -51,18 +70,26 @@ function useInternForm(): UseInternFormReturn {
   }
 
   function isValid(): boolean {
-    if (!form.name.trim()) {
-      setError("Name is required");
-      return false;
-    }
+    const validation = validateInternForm(form.name, form.score);
 
-    if (form.score < 0 || form.score > 100) {
-      setError("Score must be between 0 and 100");
+    if (validation) {
+      setError(validation);
       return false;
     }
 
     setError("");
     return true;
+  }
+
+  function submit(): void {
+    if (!isValid()) return;
+
+    addIntern({
+      id: generateId(),
+      ...form,
+    });
+
+    handleReset();
   }
 
   return {
@@ -71,7 +98,12 @@ function useInternForm(): UseInternFormReturn {
     handleChange,
     handleReset,
     isValid,
+    submit,
   };
 }
 
 export default useInternForm;
+
+// Most likely silent failure:
+// Returning false from validation can be ignored by callers.
+// Throwing meaningful errors would make failures easier to detect.
