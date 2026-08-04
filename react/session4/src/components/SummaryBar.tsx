@@ -1,10 +1,10 @@
-// Testability audit — SummaryBar.tsx
-// Q1 Predictable output? YES — renders based on context values.
-// Q2 No external deps? PARTIALLY — depends on React Context.
-// Q3 Dependencies injectable? NO — useInterns() is hard-coded.
-// Verdict: MODERATELY TESTABLE
+// Job: This file displays summary information about interns.
+// Concerns mixed (if any):
+// - Presentational UI
+// - Container logic (retrieving data from context)
 
 import { useInterns } from "../contexts/intern-context";
+import { calculateAverageScore } from "../services/intern-service";
 
 interface SummaryBarProps {
   total: number;
@@ -33,15 +33,12 @@ export function SummaryBarContainer() {
 
   const total = interns.length;
 
-  const presentCount = interns.filter((intern) => intern.isPresent).length;
+  const presentCount = interns.filter(
+    (intern) => intern.isPresent
+  ).length;
 
-  const averageScore =
-    interns.length > 0
-      ? Math.round(
-          interns.reduce((sum, intern) => sum + intern.score, 0) /
-            interns.length,
-        )
-      : 0;
+  // Business logic delegated to the service layer
+  const averageScore = calculateAverageScore(interns);
 
   return (
     <SummaryBar

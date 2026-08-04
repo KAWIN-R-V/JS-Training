@@ -1,8 +1,16 @@
-// Silent Failure Audit — intern-context.tsx
-// Pattern 1: generateId() is silently used when intern.id is missing.
-// Pattern 2: Initial intern data is loaded using setTimeout with no error handling.
-// Pattern 3: addIntern accepts any Intern object without validating required fields.
-// Pattern 4: removeIntern silently succeeds even if the given id does not exist.
+// Job: This file provides the Intern Context and manages the shared intern state for the application.
+// Concerns mixed (if any):
+// - React Context creation
+// - State management
+// - Initial data loading
+// - API response validation
+// - Loading state management
+
+import { useInternRepository } from "../repositories/intern-repository";
+import {
+  createIntern,
+  calculateAverageScore,
+} from "../services/intern-service";
 
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
@@ -66,7 +74,7 @@ function validateInternResponse(data: unknown): Intern[] {
 export function InternProvider({
   children,
 }: InternProviderProps) {
-  const [interns, setInterns] = useState<Intern[]>([]);
+  const repo = useInternRepository();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -104,36 +112,28 @@ export function InternProvider({
 
       const validatedInterns = validateInternResponse(data);
 
-      setInterns(validatedInterns);
+      validatedInterns.forEach(repo.add);
       setIsLoading(false);
     }, 800);
   }, []);
+    function addIntern(form: Omit<Intern, "id">): void {
+      const intern = createIntern(form);
 
-  function addIntern(intern: Intern): void {
-    if (intern.id == null) {
-      throw new Error(
-        "addIntern: id is required, got: " + intern.id
-      );
+      repo.add(intern);
     }
 
-    setInterns((prev) => [
-      ...prev,
-      intern,
-    ]);
-  }   
-
   function removeIntern(id: number): void {
-    setInterns((prev) => prev.filter((i) => i.id !== id));
+      repo.remove(id);
   }
 
   return (
     <InternContext.Provider
       value={{
-        interns,
-        isLoading,
-        addIntern,
-        removeIntern,
-      }}
+      interns: repo.interns,
+      isLoading,
+      addIntern,
+      removeIntern,
+    }}
     >
       {children}
     </InternContext.Provider>

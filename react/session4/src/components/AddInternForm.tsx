@@ -1,3 +1,7 @@
+// Job: This component renders the Add Intern form and forwards user actions to the form hook.
+// Concerns mixed (if any):
+// None. It is mainly responsible for rendering the UI and handling user interactions.
+
 import useInternForm from "../hooks/useInternForm";
 import { useInterns } from "../contexts/intern-context";
 

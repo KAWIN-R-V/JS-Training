@@ -1,7 +1,8 @@
-// Silent Failure Audit — useInternSearch.ts
-// Pattern 1: Average score silently defaults to 0 when the intern list is empty.
-// Pattern 2: Empty search string returns all interns without indicating whether data was loaded or simply empty.
-// Pattern 3: Statistics continue to calculate even when the input list may be invalid.
+// Job: This hook manages intern search, filtering, and summary statistics.
+// Concerns mixed (if any):
+// - Search state
+// - Filtering logic
+// - Statistics calculation
 
 import { useState, useMemo } from "react";
 import { filterInterns } from "../utils/intern-utils";

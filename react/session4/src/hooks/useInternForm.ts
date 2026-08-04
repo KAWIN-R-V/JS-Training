@@ -1,7 +1,8 @@
-// Silent Failure Audit — useInternForm.ts
-// Pattern 1: Validation returns false instead of throwing for invalid input.
-// Pattern 2: Error messages are stored in component state instead of immediately stopping execution.
-// Pattern 3: submit() depends on validation but may silently return without indicating why to the caller.
+// Job: This hook manages the intern form state and coordinates validation and submission.
+// Concerns mixed (if any):
+// - Form state management
+// - Validation
+// - Submission coordination
 
 import { useState } from "react";
 import type { ChangeEvent } from "react";
