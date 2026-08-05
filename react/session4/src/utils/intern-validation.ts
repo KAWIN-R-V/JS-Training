@@ -1,9 +1,9 @@
-import { assert } from "./assert";
+// Code Smell Audit — intern-validation.ts
+// Smell 1: Magic numbers — score limits use 0 and 100 directly.
+// Smell 2: Hardcoded strings — validation messages are embedded in the function.
+// Smell 3: Validation rules rely on literal values instead of named constants.
 
-// Silent Failure Audit — intern-validation.ts
-// Pattern 1: Validation returns an error message instead of throwing an exception.
-// Pattern 2: Callers must remember to check the returned value.
-// Pattern 3: Invalid input can be ignored if the caller forgets to handle the result.
+import { assert } from "./assert";
 
 export function validateInternForm(
   name: string,
@@ -33,6 +33,6 @@ export function validateInternForm(
   return null;
 }
 
-// Most likely silent failure:
-// Returning an error string relies on every caller checking the result.
-// If a caller ignores it, invalid data can continue through the application unnoticed.
+// Smell to fix first:
+// The magic numbers should be replaced with named constants.
+// This makes the validation rules easier to understand and maintain.

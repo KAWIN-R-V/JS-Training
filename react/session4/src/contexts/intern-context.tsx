@@ -1,10 +1,7 @@
-// Job: This file provides the Intern Context and manages the shared intern state for the application.
-// Concerns mixed (if any):
-// - React Context creation
-// - State management
-// - Initial data loading
-// - API response validation
-// - Loading state management
+// Code Smell Audit — intern-context.tsx
+// Smell 1: Large component — manages loading, state, and context wiring.
+// Smell 2: Multiple responsibilities — coordinates repository, service, and loading logic.
+// Smell 3: Long functions — the provider still contains initialization and state management logic.
 
 import { useInternRepository } from "../repositories/intern-repository";
 import {
@@ -150,6 +147,6 @@ export function useInterns(): InternContextType {
   return context;
 }
 
-// Most likely silent failure:
-// addIntern accepts invalid data without validation.
-// Invalid interns could be stored in state and cause bugs much later in the application.
+// Smell to fix first:
+// The multiple responsibilities in InternProvider should be reduced.
+// Separating loading, business logic, and state management makes the file easier to understand and maintain.

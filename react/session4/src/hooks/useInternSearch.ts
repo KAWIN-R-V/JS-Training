@@ -1,8 +1,7 @@
-// Job: This hook manages intern search, filtering, and summary statistics.
-// Concerns mixed (if any):
-// - Search state
-// - Filtering logic
-// - Statistics calculation
+// Code Smell Audit — useInternSearch.ts
+// Smell 1: Duplicate logic — average score calculation duplicates business logic.
+// Smell 2: Multiple responsibilities — manages search state and performs calculations.
+// Smell 3: Business logic inside hook — filtering and statistics belong in the service layer.
 
 import { useState, useMemo } from "react";
 import { filterInterns } from "../utils/intern-utils";
@@ -62,6 +61,6 @@ function useInternSearch(interns: Intern[]): UseInternSearchReturn {
 
 export default useInternSearch;
 
-// Most likely silent failure:
-// Returning an average score of 0 for an empty intern list can hide missing or failed data loading.
-// It becomes difficult to distinguish between "no interns" and "failed to load interns".
+// Smell to fix first:
+// The duplicated average score calculation should be moved into the service layer.
+// This reduces duplication and makes the calculation reusable.

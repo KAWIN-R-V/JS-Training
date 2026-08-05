@@ -1,8 +1,7 @@
-// Job: This hook manages the intern form state and coordinates validation and submission.
-// Concerns mixed (if any):
-// - Form state management
-// - Validation
-// - Submission coordination
+// Code Smell Audit — useInternForm.ts
+// Smell 1: Long function — submit() validates the form, creates an intern, submits it, and resets the form.
+// Smell 2: Multiple responsibilities — manages form state while coordinating business logic.
+// Smell 3: Tight coupling — depends on validation logic and addIntern() in the same hook.
 
 import { useState } from "react";
 import type { ChangeEvent } from "react";
@@ -105,6 +104,6 @@ function useInternForm(
 
 export default useInternForm;
 
-// Most likely silent failure:
-// Returning false from validation can be ignored by callers.
-// Throwing meaningful errors would make failures easier to detect.
+// Smell to fix first:
+// The long submit() function should be refactored first because it performs several responsibilities.
+// Splitting it into smaller functions will improve readability, maintainability, and testing.
