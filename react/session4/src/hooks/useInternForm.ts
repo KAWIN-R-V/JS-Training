@@ -48,19 +48,31 @@ function useInternForm(
   const [form, setForm] = useState<InternFormState>(initialForm);
   const [error, setError] = useState("");
 
+  // Extracted helper function
+  function getFieldValue(
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ): string | number | boolean {
+    const { name, value, type } = e.target;
+
+    if (type === "checkbox") {
+      return (e.target as HTMLInputElement).checked;
+    }
+
+    if (name === "score") {
+      return Number(value);
+    }
+
+    return value;
+  }
+
   function handleChange(
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ): void {
-    const { name, value, type } = e.target;
+    const { name } = e.target;
 
     setForm((prev) => ({
       ...prev,
-      [name]:
-        type === "checkbox"
-          ? (e.target as HTMLInputElement).checked
-          : name === "score"
-          ? Number(value)
-          : value,
+      [name]: getFieldValue(e),
     }));
   }
 
@@ -70,10 +82,13 @@ function useInternForm(
   }
 
   function isValid(): boolean {
-    const validation = validateInternForm(form.name, form.score);
+    const validationError = validateInternForm(
+      form.name,
+      form.score
+    );
 
-    if (validation) {
-      setError(validation);
+    if (validationError) {
+      setError(validationError);
       return false;
     }
 
@@ -81,8 +96,13 @@ function useInternForm(
     return true;
   }
 
+  // Guard clause
   function submit(): void {
-    if (!isValid()) return;
+    const formIsValid = isValid();
+
+    if (!formIsValid) {
+      return;
+    }
 
     addIntern({
       id: generateId(),
@@ -105,5 +125,7 @@ function useInternForm(
 export default useInternForm;
 
 // Smell to fix first:
-// The long submit() function should be refactored first because it performs several responsibilities.
-// Splitting it into smaller functions will improve readability, maintainability, and testing.
+// The long submit() function performs multiple responsibilities
+// (validation, object creation, submission, and reset).
+// Extracting responsibilities into helper functions improves
+// readability, maintainability, and testing.

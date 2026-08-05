@@ -3,9 +3,11 @@
 // Smell 2: Multiple responsibilities — manages search state and performs calculations.
 // Smell 3: Business logic inside hook — filtering and statistics belong in the service layer.
 
-import { useState, useMemo } from "react";
-import { filterInterns } from "../utils/intern-utils";
-import { assert } from "../utils/assert";
+import { useMemo, useState } from "react";
+import {
+  filterInterns,
+  calculateAverageScore,
+} from "../services/intern-service";
 
 interface Intern {
   id: number;
@@ -26,27 +28,25 @@ interface UseInternSearchReturn {
   };
 }
 
-function useInternSearch(interns: Intern[]): UseInternSearchReturn {
+function useInternSearch(
+  interns: Intern[]
+): UseInternSearchReturn {
   const [search, setSearch] = useState("");
 
-  
+  // Filtering is delegated to the service layer
   const filtered = useMemo(
-    
     () => filterInterns(interns, search),
     [interns, search]
   );
 
+  // Average score calculation is delegated to the service layer
   const stats = useMemo(
     () => ({
       total: interns.length,
-      present: interns.filter((i) => i.isPresent).length,
-      avg:
-        interns.length > 0
-          ? Math.round(
-              interns.reduce((sum, i) => sum + i.score, 0) /
-                interns.length
-            )
-          : 0,
+      present: interns.filter(
+        (intern) => intern.isPresent
+      ).length,
+      avg: calculateAverageScore(interns),
     }),
     [interns]
   );
@@ -62,5 +62,7 @@ function useInternSearch(interns: Intern[]): UseInternSearchReturn {
 export default useInternSearch;
 
 // Smell to fix first:
-// The duplicated average score calculation should be moved into the service layer.
-// This reduces duplication and makes the calculation reusable.
+// The duplicated average score calculation has been moved to
+// calculateAverageScore() in the service layer.
+// This removes duplication, improves reuse, and ensures that
+// changes to the calculation only need to be made in one place.

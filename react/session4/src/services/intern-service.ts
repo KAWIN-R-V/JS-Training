@@ -7,6 +7,13 @@ export interface InternFormState {
   role: string;
 }
 
+// Lookup table for role labels
+const ROLE_LABELS: Record<string, string> = {
+  Frontend: "Frontend Developer",
+  Backend: "Backend Developer",
+  Fullstack: "Fullstack Developer",
+};
+
 /**
  * Creates a new Intern object from form data.
  * Business logic only – no React code.
@@ -62,12 +69,20 @@ export function calculateAverageScore(
 }
 
 /**
- * Returns the score label.
+ * Returns Pass or Fail based on the score.
  */
 export function getScoreLabel(
   score: number
 ): "Pass" | "Fail" {
   return score >= 50 ? "Pass" : "Fail";
+}
+
+/**
+ * Returns a human-readable role label.
+ * Uses a lookup object instead of an if/else chain.
+ */
+export function getRoleLabel(role: string): string {
+  return ROLE_LABELS[role] ?? "Unknown";
 }
 
 /**

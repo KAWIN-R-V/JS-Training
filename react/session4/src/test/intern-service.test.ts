@@ -1,10 +1,21 @@
+import { describe, test, expect } from "vitest";
 import {
   createIntern,
   validateInternForm,
   calculateAverageScore,
   getScoreLabel,
+  getRoleLabel,
   filterInterns,
 } from "../services/intern-service";
+
+const makeIntern = (overrides = {}) => ({
+  id: 1,
+  name: "Rahul",
+  score: 92,
+  role: "Frontend",
+  isPresent: true,
+  ...overrides,
+});
 
 describe("createIntern", () => {
   test("generates an id", () => {
@@ -93,20 +104,15 @@ describe("calculateAverageScore", () => {
   test("returns correct average", () => {
     expect(
       calculateAverageScore([
-        {
-          id: 1,
-          name: "A",
+        makeIntern({
           score: 80,
-          role: "Frontend",
-          isPresent: true,
-        },
-        {
+        }),
+        makeIntern({
           id: 2,
-          name: "B",
+          name: "Priya",
           score: 100,
           role: "Backend",
-          isPresent: true,
-        },
+        }),
       ])
     ).toBe(90);
   });
@@ -114,20 +120,15 @@ describe("calculateAverageScore", () => {
   test("rounds correctly", () => {
     expect(
       calculateAverageScore([
-        {
-          id: 1,
-          name: "A",
+        makeIntern({
           score: 80,
-          role: "Frontend",
-          isPresent: true,
-        },
-        {
+        }),
+        makeIntern({
           id: 2,
-          name: "B",
+          name: "Priya",
           score: 81,
           role: "Backend",
-          isPresent: true,
-        },
+        }),
       ])
     ).toBe(81);
   });
@@ -149,20 +150,13 @@ describe("getScoreLabel", () => {
 
 describe("filterInterns", () => {
   const interns = [
-    {
-      id: 1,
-      name: "Rahul",
-      score: 90,
-      role: "Frontend",
-      isPresent: true,
-    },
-    {
+    makeIntern(),
+    makeIntern({
       id: 2,
       name: "Priya",
       score: 85,
       role: "Backend",
-      isPresent: true,
-    },
+    }),
   ];
 
   test("returns all when query is empty", () => {
@@ -179,5 +173,23 @@ describe("filterInterns", () => {
 
   test("is case insensitive", () => {
     expect(filterInterns(interns, "FRONTEND")).toHaveLength(1);
+  });
+});
+
+describe("getRoleLabel", () => {
+  test("returns Frontend Developer", () => {
+    expect(getRoleLabel("Frontend")).toBe("Frontend Developer");
+  });
+
+  test("returns Backend Developer", () => {
+    expect(getRoleLabel("Backend")).toBe("Backend Developer");
+  });
+
+  test("returns Fullstack Developer", () => {
+    expect(getRoleLabel("Fullstack")).toBe("Fullstack Developer");
+  });
+
+  test("returns Unknown for an unknown role", () => {
+    expect(getRoleLabel("DevOps")).toBe("Unknown");
   });
 });
