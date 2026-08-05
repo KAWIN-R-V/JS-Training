@@ -1,3 +1,14 @@
+// Code Smell Audit — intern-context.tsx
+// Smell 1: Large component — manages loading, state, and context wiring.
+// Smell 2: Multiple responsibilities — coordinates repository, service, and loading logic.
+// Smell 3: Long functions — the provider still contains initialization and state management logic.
+
+import { useInternRepository } from "../repositories/intern-repository";
+import {
+  createIntern,
+  calculateAverageScore,
+} from "../services/intern-service";
+
 import { createContext, useContext, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 
@@ -16,15 +27,56 @@ interface InternContextType {
   removeIntern: (id: number) => void;
 }
 
+interface InternProviderProps {
+  children: ReactNode;
+  generateId?: () => number;
+}
+
 const InternContext = createContext<InternContextType | null>(null);
 
-export function InternProvider({ children }: { children: ReactNode }) {
-  const [interns, setInterns] = useState<Intern[]>([]);
+function validateInternResponse(data: unknown): Intern[] {
+  if (!Array.isArray(data)) {
+    throw new Error(
+      `validateInternResponse: expected array, got: ${typeof data}`
+    );
+  }
+
+  return data.map((item, index) => {
+    const intern = item as Intern;
+
+    if (
+      typeof intern.name !== "string" ||
+      !intern.name.trim()
+    ) {
+      throw new Error(
+        `validateInternResponse: item[${index}].name is invalid`
+      );
+    }
+
+    if (
+      typeof intern.score !== "number" ||
+      intern.score < 0 ||
+      intern.score > 100
+    ) {
+      throw new Error(
+        `validateInternResponse: item[${index}].score is invalid, got: ${intern.score}`
+      );
+    }
+
+    return intern;
+  });
+}
+
+
+export function InternProvider({
+  children,
+}: InternProviderProps) {
+  const repo = useInternRepository();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
-      setInterns([
+      const data = [
         {
           id: 1,
           name: "Rahul",
@@ -53,28 +105,32 @@ export function InternProvider({ children }: { children: ReactNode }) {
           role: "Fullstack",
           isPresent: true,
         },
-      ]);
+      ];
 
+      const validatedInterns = validateInternResponse(data);
+
+      validatedInterns.forEach(repo.add);
       setIsLoading(false);
     }, 800);
   }, []);
+    function addIntern(form: Omit<Intern, "id">): void {
+      const intern = createIntern(form);
 
-  function addIntern(intern: Intern): void {
-    setInterns((prev) => [...prev, intern]);
-  }
+      repo.add(intern);
+    }
 
   function removeIntern(id: number): void {
-    setInterns((prev) => prev.filter((i) => i.id !== id));
+      repo.remove(id);
   }
 
   return (
     <InternContext.Provider
       value={{
-        interns,
-        isLoading,
-        addIntern,
-        removeIntern,
-      }}
+      interns: repo.interns,
+      isLoading,
+      addIntern,
+      removeIntern,
+    }}
     >
       {children}
     </InternContext.Provider>
@@ -90,3 +146,7 @@ export function useInterns(): InternContextType {
 
   return context;
 }
+
+// Smell to fix first:
+// The multiple responsibilities in InternProvider should be reduced.
+// Separating loading, business logic, and state management makes the file easier to understand and maintain.
