@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Coverage reports
+coverage/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Vite
+.vite/
+
+# OS files
+.DS_Store
+Thumbs.db
