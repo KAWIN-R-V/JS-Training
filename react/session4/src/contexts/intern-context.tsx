@@ -6,7 +6,7 @@
 import { useInternRepository } from "../repositories/intern-repository";
 import {
   createIntern,
-  calculateAverageScore,
+  //calculateAverageScore,
 } from "../services/intern-service";
 
 import { createContext, useContext, useEffect, useState } from "react";
