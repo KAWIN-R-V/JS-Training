@@ -5,7 +5,7 @@ function ScoreStats() {
   const { interns } = useInterns();
 
   const stats = useMemo(() => {
-    console.log("Recalculating stats...");
+    console.log("[ScoreStats] Recalculating statistics...");
 
     const scores = interns.map((intern) => intern.score);
 
