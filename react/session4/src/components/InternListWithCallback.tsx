@@ -17,7 +17,7 @@ function InternRow({
 }: InternRowProps) {
   const { theme } = useTheme();
 
-  console.log(`InternRow rendered: ${name}`);
+  console.log(`[InternRow] Rendered: ${name}`);
 
   return (
     <div

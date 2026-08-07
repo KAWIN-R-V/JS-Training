@@ -44,7 +44,7 @@ passed to child components.
 Example:
 
 const handleClick = () => {
-    console.log("Clicked");
+    console.log("[SelfLearning] Button clicked");
 };
 
 Wrapping this with useCallback provides little or no
